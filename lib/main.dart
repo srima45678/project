@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/Authentication/signup.dart';
 import 'package:project/screens/home_screen.dart';
+import 'package:project/screens/search_screen.dart';
+import 'package:project/screens/booking_screen.dart';
+import 'package:project/Authentication/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,8 +37,14 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: EventifyHome(),
+      // Named routes for navigation
+      routes: {
+        '/home': (context) => const EventifyHome(),
+        '/search': (context) => const SearchScreen(),
+        '/booking': (context) => const BookingScreen(),
+        '/login': (context) => const LoginPage(),
+        '/sign': (context) => const RegisterPage(),
+      },
     );
   }
 }
-
- 

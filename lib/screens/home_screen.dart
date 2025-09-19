@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -90,7 +91,7 @@ class _EventifyHomeState extends State<EventifyHome> {
                               fit: BoxFit.cover,
                             ),
                             Container(
-                              color: Colors.black45,
+                              // color: Colors.black45,
                               alignment: Alignment.center,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -178,12 +179,20 @@ SingleChildScrollView(
   scrollDirection: Axis.horizontal,
   padding: const EdgeInsets.symmetric(horizontal: 16),
   child: Row(              
-    children: const [
+    children:  [
+                // GestureDetector(
+                  // onTap: (){
+                    // Fluttertoast.showToast(msg: 'hello');
+                    // SnackBar(content:Text('hello'));
+                  // },
+                  // child: _CategoryCard(label: 'Birthday Parties', imageAsset: 'assets/images/cake.jpg'),
+                // ),
+
                 _CategoryCard(label: 'Birthday Parties', imageAsset: 'assets/images/cake.jpg'),
                 _CategoryCard(label: 'Wedding Ceremony', imageAsset: 'assets/images/wedding.jpg'),
                 _CategoryCard(label: 'Cocktail Parties', imageAsset: 'assets/images/cocktail.jpg'),
                 _CategoryCard(label: 'Fashion Show', imageAsset: 'assets/images/fashion.jpg'),
-                _CategoryCard(label: 'Baby             Shower', imageAsset: 'assets/images/babyshower.jpeg'),
+                _CategoryCard(label: 'Baby     Shower', imageAsset: 'assets/images/babyshower.jpeg'),
                 _CategoryCard(label: 'Farewell Party', imageAsset: 'assets/images/farewell.jpg'),
                 _CategoryCard(label: 'Conference Hall', imageAsset: 'assets/images/conference.jpeg'),
               ],
@@ -400,7 +409,17 @@ const SizedBox(height: 24),
         selectedItemColor: const Color(0xFF8F5CFF),
         unselectedItemColor: const Color.fromARGB(255, 73, 73, 73),
         currentIndex: 0,
-        onTap: (index) {},
+        onTap: (index) {
+          if (index == 0) {
+          Navigator.pushReplacementNamed(context, '/home');
+          } else if (index == 1) {
+           Navigator.pushReplacementNamed(context, '/search');
+          }
+          else if (index == 2) {
+            Navigator.pushReplacementNamed(context, '/booking');
+          }
+          // add more if you create more screens
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
@@ -589,7 +608,7 @@ class _CardBase extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFF48FB1),
+                    backgroundColor: const Color(0xFF8F5CFF),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
