@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project/screens/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:project/screens/venue_details.dart';
 
-class EventifyHome extends StatefulWidget {
-  const EventifyHome({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<EventifyHome> createState() => _EventifyHomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _EventifyHomeState extends State<EventifyHome> {
+class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<Map<String, String>> _bannerImages = [
     {
       'image': 'assets/images/banner1.jpg',
@@ -33,10 +36,13 @@ class _EventifyHomeState extends State<EventifyHome> {
   ];
 
   int _current = 0;
+  int _currentIndex = 0; // 0 = Home, 1 = Search, …
+  // int _selectedIndex = 0; // 0 = Home, 1 = Search, …
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -58,11 +64,15 @@ class _EventifyHomeState extends State<EventifyHome> {
         actions: [
           IconButton(
             icon: const Icon(Icons.menu, color: Colors.black87),
-            onPressed: () {},
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
           ),
           const SizedBox(width: 8),
         ],
       ),
+
+      drawer: const AppDrawer(),
 
       // ---------------- BODY ----------------
       body: SingleChildScrollView(
@@ -406,19 +416,25 @@ const SizedBox(height: 24),
 
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        currentIndex: _currentIndex,
         selectedItemColor: const Color(0xFF8F5CFF),
         unselectedItemColor: const Color.fromARGB(255, 73, 73, 73),
-        currentIndex: 0,
         onTap: (index) {
+          setState(() => _currentIndex = index);
+          // Simple navigation example:
           if (index == 0) {
-          Navigator.pushReplacementNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/home');
           } else if (index == 1) {
            Navigator.pushReplacementNamed(context, '/search');
-          }
-          else if (index == 2) {
+          } else if (index == 2) {
             Navigator.pushReplacementNamed(context, '/booking');
           }
-          // add more if you create more screens
+          else if (index == 3) {
+            Navigator.pushReplacementNamed(context, '/favourites');
+          } else if (index == 4) {
+            Navigator.pushReplacementNamed(context, '/profile');
+          }
+          // Add more routes as needed
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -521,6 +537,22 @@ class _VenueCard extends StatelessWidget {
       price: price,
       halls: halls,
       capacity: capacity,
+      buttonLabel: 'Show Details',
+      onButtonPressed: () {
+ Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VenueDetailsPage(
+              image: image,
+              name: name,
+              location: location,
+              price: price,
+              halls: halls,
+              capacity: capacity,
+            ),
+          ),
+ ); 
+      },
     );
   }
 }
@@ -545,13 +577,30 @@ class _StageCard extends StatelessWidget {
       price: price,
       halls: halls,
       capacity: capacity,
+      buttonLabel: 'Select',
+      onButtonPressed: () {
+Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VenueDetailsPage(
+              image: image,
+              name: name,
+              location: location,
+              price: price,
+              halls: halls,
+              capacity: capacity,
+            ),
+          ),
+ );       },
     );
   }
 }
 
 // Re-usable card layout
-class _CardBase extends StatelessWidget {
+class _CardBase extends StatefulWidget {
   final String image, name, location, price, halls, capacity;
+  final String buttonLabel;
+  final VoidCallback onButtonPressed;
   const _CardBase({
     required this.image,
     required this.name,
@@ -559,7 +608,17 @@ class _CardBase extends StatelessWidget {
     required this.price,
     required this.halls,
     required this.capacity,
+    required this.buttonLabel,
+    required this.onButtonPressed,
   });
+
+  @override
+  State<_CardBase> createState() => _CardBaseState();
+}
+
+class _CardBaseState extends State<_CardBase> {
+  bool isFavourite= false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -573,35 +632,71 @@ class _CardBase extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(image, width: double.infinity, height: 80, fit: BoxFit.cover),
+            // ---------- Favorite Icon ----------
+            Stack(
+              children: [
+                Image.asset(
+                  widget.image,
+                  width: double.infinity,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
+                Positioned(
+                  top: 6,
+                  right: 6,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () {
+                      setState(() => isFavourite = !isFavourite);
+                      // TODO: save favourite to DB or provider if needed
+                    },
+                    child: CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.white.withOpacity(0.7),
+                      child: Icon(
+                        isFavourite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: isFavourite ? Colors.red : Colors.black54,
+                        size: 18,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            // ---------- Details ----------
+            // Image.asset(widget.image, width: double.infinity, height: 80, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name,
+                  Text(widget.name,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 15)),
-                  Text(location,
+                  Text(widget.location,
                       style: const TextStyle(color: Colors.grey, fontSize: 13)),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       const Icon(Icons.currency_rupee,
                           size: 14, color: Colors.pink),
-                      Text(price, style: const TextStyle(fontSize: 13)),
+                      Text(widget.price, style: const TextStyle(fontSize: 13)),
                       const Spacer(),
                       const Icon(Icons.meeting_room,
                           size: 14, color: Colors.purple),
-                      Text(' $halls', style: const TextStyle(fontSize: 13)),
+                      Text(' ${widget.halls}', style: const TextStyle(fontSize: 13)),
                       const Spacer(),
                       const Icon(Icons.people, size: 14, color: Colors.blue),
-                      Text(' $capacity', style: const TextStyle(fontSize: 13)),
+                      Text(' ${widget.capacity}', style: const TextStyle(fontSize: 13)),
                     ],
                   ),
                 ],
               ),
             ),
+            // ---------- Action Button ----------
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               child: SizedBox(
@@ -616,8 +711,8 @@ class _CardBase extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     textStyle: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {},
-                  child: const Text('Book Now'),
+                  onPressed: widget.onButtonPressed,
+                  child: Text(widget.buttonLabel),
                 ),
               ),
             ),
@@ -627,3 +722,4 @@ class _CardBase extends StatelessWidget {
     );
   }
 }
+ 

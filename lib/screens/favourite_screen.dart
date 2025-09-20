@@ -1,50 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/drawer.dart';
 
-class BookingPage extends StatelessWidget {
-  const BookingPage({super.key});
-
-// int _currentIndex = 2; // Bookings
+class FavouritesPage extends StatelessWidget {
+  const FavouritesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-        final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-    // Dummy booking data
-    final bookings = [
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    // Dummy favourite data
+    final favourites = [
       {
         'venue': 'Grand Palace Hall',
-        'date': '2025-10-12',
+        'location': 'Surat, Gujarat',
         'image': 'assets/images/venue1.jpeg',
-        'status': 'Confirmed',
+        'price': '₹ 5,000',
       },
       {
         'venue': 'Sunset Banquet',
-        'date': '2025-11-05',
+        'location': 'Ahmedabad, Gujarat',
         'image': 'assets/images/venue2.jpeg',
-        'status': 'Pending',
-      },
-            {
-        'venue': 'Royal Place',
-        'date': '2025-10-05',
-        'image': 'assets/images/venue3.jpeg',
-        'status': 'Pending',
-      },
-            {
-        'venue': 'Heritage Garden',
-        'date': '2024-11-05',
-        'image': 'assets/images/mandap2.jpeg',
-        'status': 'Confirmed',
+        'price': '₹ 7,000',
       },
     ];
 
     return Scaffold(
       key: _scaffoldKey,
       drawer: const AppDrawer(),
-      // endDrawer: const AppDrawer(),
       appBar: AppBar(
+        // title: const Text('My Favourites'),
         backgroundColor: Colors.white,
-        elevation: 0,
-        leading: Padding(
+        foregroundColor: Colors.black,
+        elevation: 1,
+                leading: Padding(
           padding: const EdgeInsets.only(left: 12.0),
           child: Image.asset('assets/images/logo.jpeg', width: 36, height: 36),
         ),
@@ -67,48 +55,49 @@ class BookingPage extends StatelessWidget {
           ),
           const SizedBox(width: 8),
         ],
-      ),
 
-      endDrawer: const AppDrawer(),
-      
-      backgroundColor: Colors.white,
-      body: ListView.builder(
-        itemCount: bookings.length,
-        itemBuilder: (context, index) {
-          final booking = bookings[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            elevation: 3,
-            child: ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  booking['image']!,
-                  width: 60,
-                  height: 60,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              title: Text(
-                booking['venue']!,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(
-                'Date: ${booking['date']}'+'\n'+'Status: ${booking['status']}',
-              ),
-              isThreeLine: true,
-            ),
-          );
-        },
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      backgroundColor: Colors.white,
+      body: favourites.isEmpty
+          ? const Center(child: Text('No favourites yet.'))
+          : ListView.builder(
+              itemCount: favourites.length,
+              itemBuilder: (context, index) {
+                final fav = favourites[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 3,
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        fav['image']!,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    title: Text(
+                      fav['venue']!,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text('${fav['location']}\n${fav['price']}'),
+                    isThreeLine: true,
+                  ),
+                );
+              },
+            ),
+    bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color(0xFF8F5CFF),
         unselectedItemColor: const Color.fromARGB(255, 73, 73, 73),
-        currentIndex: 2,
+        currentIndex: 3,
         onTap: (index) {
           if (index == 0) {
             Navigator.pushReplacementNamed(context, '/home');
@@ -129,7 +118,7 @@ class BookingPage extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favourites'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
-      ),
+      ),        
     );
   }
 }

@@ -22,8 +22,20 @@ class _LoginPageState extends State<LoginPage> {
 
   void _signIn() {
     if (_formKey.currentState!.validate()) {
-      // TODO: Handle sign in logic
+      // TODO: Handle regular sign-in logic, e.g., authenticate via Firebase or your backend
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
     }
+  }
+
+  void _loginAsGuest() {
+    // Simulate guest login (no email/password required)
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
   }
 
   @override
@@ -175,6 +187,20 @@ class _LoginPageState extends State<LoginPage> {
                 _GradientButton(
                   onPressed: _signIn,
                   child: const Text('Sign In'),
+                ),
+                const SizedBox(height: 16),
+                // Guest Login Button
+                ElevatedButton(
+                  onPressed: _loginAsGuest,
+                  child: const Text('Login as Guest'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    textStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 // Sign Up

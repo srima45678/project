@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project/screens/drawer.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -8,11 +9,12 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> 
+class _SearchScreenState extends State<SearchScreen>
     with SingleTickerProviderStateMixin {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   late TabController _tabController;
 
-  // Sample image list – replace with your own assets
   final List<String> _photoImages = [
     'assets/images/gate1.jpeg',
     'assets/images/gate2.jpeg',
@@ -28,17 +30,19 @@ class _SearchScreenState extends State<SearchScreen>
     'assets/images/stage3.jpeg',
   ];
 
+  int _currentIndex = 1;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
   }
 
-  int _currentIndex = 1; // 0 = Home, 1 = Search, … adjust if needed
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: const AppDrawer(),
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -60,28 +64,17 @@ class _SearchScreenState extends State<SearchScreen>
         actions: [
           IconButton(
             icon: const Icon(Icons.menu, color: Colors.black87),
-            onPressed: () {},
+            onPressed: () {
+              _scaffoldKey.currentState?.openDrawer();
+            },
           ),
           const SizedBox(width: 8),
         ],
       ),
 
-      // Optional drawer (if you had one on home, replicate it here)
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.pink),
-              child: Text('Menu', style: TextStyle(color: Colors.white)),
-            ),
-            ListTile(leading: Icon(Icons.home), title: Text('Home')),
-            ListTile(leading: Icon(Icons.settings), title: Text('Settings')),
-          ],
-        ),
-      ),
+      // ✅ Use AppDrawer only (no extra ListView here)
+      endDrawer: const AppDrawer(),
 
-      // ------------------ MAIN BODY ------------------
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -112,42 +105,42 @@ class _SearchScreenState extends State<SearchScreen>
             ),
 
             const SizedBox(height: 24),
-            // Add your search results widgets here
-                     // TabBarView
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                // ---------- Photos Grid ----------
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
+
+            // TabBarView for search results
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                      ),
+                      itemCount: _photoImages.length,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            _photoImages[index],
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
                     ),
-                    itemCount: _photoImages.length,
-                    itemBuilder: (context, index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          _photoImages[index],
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
                   ),
-                ),
+                  // Add second tab if needed
+                  const Center(child: Text("Second Tab Content")),
+                ],
+              ),
+            ),
           ],
         ),
       ),
 
-          ],
-        ),
-      ),
-
-      // ------------------ BOTTOM NAV BAR ------------------
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
@@ -155,21 +148,26 @@ class _SearchScreenState extends State<SearchScreen>
         unselectedItemColor: const Color.fromARGB(255, 73, 73, 73),
         onTap: (index) {
           setState(() => _currentIndex = index);
-          // Simple navigation example:
           if (index == 0) {
             Navigator.pushReplacementNamed(context, '/home');
           } else if (index == 1) {
-            // stay here
+            Navigator.pushReplacementNamed(context, '/search');
           } else if (index == 2) {
-            // Navigator.pushNamed(context, '/bookings');
+            Navigator.pushReplacementNamed(context, '/booking');
           }
-          // Add more routes as needed
+          else if (index == 3) {
+            Navigator.pushReplacementNamed(context, '/favourites');
+          } else if (index == 4) {
+            Navigator.pushReplacementNamed(context, '/profile');
+          }
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'Bookings'),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite_border), label: 'Favourites'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.calendar_month), label: 'Bookings'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border), label: 'Favourites'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
