@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/bookvenue.dart';
 
-class VenueDetailsPage extends StatefulWidget {
-  final String image, name, location, price, halls, capacity;
+class MandapDetailsPage extends StatefulWidget {
+  final String image, name, price, halls, capacity;
 
-  const VenueDetailsPage({
+  const MandapDetailsPage({
     super.key,
     required this.image,
     required this.name,
-    required this.location,
     required this.price,
     required this.halls,
     required this.capacity,
   });
 
   @override
-  State<VenueDetailsPage> createState() => _VenueDetailsPageState();
+  State<MandapDetailsPage> createState() => _MandapDetailsPageState();
 }
 
-class _VenueDetailsPageState extends State<VenueDetailsPage> {
-  bool isFavorite = false; // Track favorite state
+class _MandapDetailsPageState extends State<MandapDetailsPage> {
+bool isFavorite = false; // Track favorite state
 
   void toggleFavorite() {
     setState(() {
@@ -38,7 +37,6 @@ class _VenueDetailsPageState extends State<VenueDetailsPage> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,8 +49,8 @@ class _VenueDetailsPageState extends State<VenueDetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-Stack(
-              children: [
+            Stack(
+    children: [
                 // Image with rounded corners
                 ClipRRect(
                   borderRadius: const BorderRadius.vertical(
@@ -93,26 +91,18 @@ Stack(
                   ),
                 ),
               ],
-            ),            Padding(
+            ),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(widget.name,
-                      style:
-                          const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on, color: Colors.red),
-                      const SizedBox(width: 4),
-                      Text(widget.location, style: const TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text("💰 Price: ${widget.price}",
+                  Text("💰 Price: ₹ ${widget.price}",
                       style: const TextStyle(fontSize: 16)),
-                  const SizedBox(height: 8),
+                              const SizedBox(height: 8),
                   Text("🏛️ Number of Halls: ${widget.halls}",
                       style: const TextStyle(fontSize: 16)),
                   const SizedBox(height: 8),
@@ -121,15 +111,14 @@ Stack(
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
-                    child: 
-                   ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    minimumSize: const Size(double.infinity, 50),
-    backgroundColor: const Color(0xFF8F5CFF),
-    foregroundColor: Colors.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-  ),
-  onPressed: () {
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                        backgroundColor: const Color(0xFF8F5CFF),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                     onPressed: () {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -137,9 +126,8 @@ Stack(
       ),
     );
   },
-  child: const Text("Book Now", style: TextStyle(fontSize: 18,)),
-),
-
+                      child: const Text("Book Mandap", style: TextStyle(fontSize: 18)),
+                    ),
                   )
                 ],
               ),

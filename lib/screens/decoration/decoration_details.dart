@@ -1,39 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/bookvenue.dart';
 
-class VenueDetailsPage extends StatefulWidget {
-  final String image, name, location, price, halls, capacity;
+class DecorationDetailsPage extends StatefulWidget {
+  final String image, name, location, price, capacity;
 
-  const VenueDetailsPage({
+  const DecorationDetailsPage({
     super.key,
     required this.image,
     required this.name,
     required this.location,
     required this.price,
-    required this.halls,
     required this.capacity,
   });
 
   @override
-  State<VenueDetailsPage> createState() => _VenueDetailsPageState();
+  State<DecorationDetailsPage> createState() => _DecorationDetailsPageState();
 }
 
-class _VenueDetailsPageState extends State<VenueDetailsPage> {
-  bool isFavorite = false; // Track favorite state
+class _DecorationDetailsPageState extends State<DecorationDetailsPage> {
+  bool isFavorite = false;
 
   void toggleFavorite() {
     setState(() {
       isFavorite = !isFavorite;
     });
 
-    // Optional: show a snackbar to confirm
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          isFavorite
-              ? "${widget.name} added to favorites ❤️"
-              : "${widget.name} removed from favorites 💔",
-        ),
+        content: Text(isFavorite
+            ? "${widget.name} added to favorites ❤️"
+            : "${widget.name} removed from favorites 💔"),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -51,22 +47,17 @@ class _VenueDetailsPageState extends State<VenueDetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-Stack(
+            Stack(
               children: [
-                // Image with rounded corners
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(12),
-                  ),
+                  borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
                   child: Image.asset(
                     widget.image,
                     width: double.infinity,
-                    height: 400,
+                    height: 250,
                     fit: BoxFit.cover,
                   ),
                 ),
-
-                // Favorite Icon Positioned
                 Positioned(
                   top: 12,
                   right: 12,
@@ -93,53 +84,45 @@ Stack(
                   ),
                 ),
               ],
-            ),            Padding(
+            ),
+            Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(widget.name,
-                      style:
-                          const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on, color: Colors.red),
-                      const SizedBox(width: 4),
-                      Text(widget.location, style: const TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text("💰 Price: ${widget.price}",
+                  Text("📍 Location: ${widget.location}",
                       style: const TextStyle(fontSize: 16)),
                   const SizedBox(height: 8),
-                  Text("🏛️ Number of Halls: ${widget.halls}",
+                  Text("💰 Price: ₹ ${widget.price}",
                       style: const TextStyle(fontSize: 16)),
                   const SizedBox(height: 8),
-                  Text("👥 Capacity: ${widget.capacity} people",
+                  Text("🎈 Setup Type: ${widget.capacity}",
                       style: const TextStyle(fontSize: 16)),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: double.infinity,
-                    child: 
-                   ElevatedButton(
-  style: ElevatedButton.styleFrom(
-    minimumSize: const Size(double.infinity, 50),
-    backgroundColor: const Color(0xFF8F5CFF),
-    foregroundColor: Colors.white,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-  ),
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VenueBookingPage(),
-      ),
-    );
-  },
-  child: const Text("Book Now", style: TextStyle(fontSize: 18,)),
-),
-
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                        backgroundColor: const Color(0xFF8F5CFF),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                     onPressed: () {
+                     Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                     builder: (context) => VenueBookingPage(),
+                     ),
+                  );
+                  },
+                      child: const Text("Book Decoration",
+                          style: TextStyle(fontSize: 18)),
+                    ),
                   )
                 ],
               ),

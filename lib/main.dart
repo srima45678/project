@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project/Admin/admin_home.dart';
+import 'package:project/screens/help_support.dart';
 import 'package:project/screens/home_screen.dart';
+import 'package:project/screens/personal_info.dart';
 import 'package:project/screens/search_screen.dart';
 import 'package:project/screens/booking_screen.dart';
 import 'package:project/Authentication/login.dart';
@@ -14,6 +17,10 @@ import 'package:project/screens/logo.dart' show EventifyScreen;
 import 'package:project/screens/favourite_screen.dart';
 import 'package:project/screens/profile_page.dart';
 import 'package:project/screens/bookvenue.dart';
+import 'package:project/Authentication/privacy_security.dart';
+import 'package:project/screens/payment/payments_screen.dart';
+
+
 // import 'package:project/screens/venue_details.dart';
 
 void main() {
@@ -61,12 +68,18 @@ class MyApp extends StatelessWidget {
         '/contact_us': (context) => const ContactUsPage(),
         '/about_us': (context) => const AboutUsPage(),
         '/favourites': (context) => const FavouritesPage(),
-        '/profile': (context) => const ProfilePage(),
+        '/profile': (context) => const ProfilePages(),
         '/bookvenue': (context) => const VenueBookingPage(),
+        '/personal_info': (context) => const PersonalInformationScreen(),
+        '/privacy_security': (context) => const PrivacySecurityScreen(),
+        '/payment_screen': (context) => const PaymentsScreen(),
+        '/admin_home': (context) => const AdminHomePage(),
+        'help_support': (context) => const HelpSupportScreen(),
         // '/venue_details': (context) => const VenueDetailsPage(),
         // '/logo': (context) => const EventifyScreen(),
       },
-       home: const SplashToWelcome(),
+      //  home: const SplashToWelcome(),
+      home: AdminHomePage(),
     );
   }
 }

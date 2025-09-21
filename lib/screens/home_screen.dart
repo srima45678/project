@@ -4,6 +4,13 @@ import 'package:project/screens/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:project/screens/venue_details.dart';
+import 'package:project/screens/category_details.dart';
+import 'package:project/screens/viewall_stage.dart';
+import 'package:project/screens/viewall_venue.dart';
+import 'package:project/screens/mandap/viewall_mandap.dart';
+import 'package:project/screens/gate/viewall_gate.dart';
+import 'package:project/screens/decoration/viewall_decoration.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -188,30 +195,129 @@ class _HomeScreenState extends State<HomeScreen> {
 SingleChildScrollView(
   scrollDirection: Axis.horizontal,
   padding: const EdgeInsets.symmetric(horizontal: 16),
-  child: Row(              
-    children:  [
-                // GestureDetector(
-                  // onTap: (){
-                    // Fluttertoast.showToast(msg: 'hello');
-                    // SnackBar(content:Text('hello'));
-                  // },
-                  // child: _CategoryCard(label: 'Birthday Parties', imageAsset: 'assets/images/cake.jpg'),
-                // ),
-
-                _CategoryCard(label: 'Birthday Parties', imageAsset: 'assets/images/cake.jpg'),
-                _CategoryCard(label: 'Wedding Ceremony', imageAsset: 'assets/images/wedding.jpg'),
-                _CategoryCard(label: 'Cocktail Parties', imageAsset: 'assets/images/cocktail.jpg'),
-                _CategoryCard(label: 'Fashion Show', imageAsset: 'assets/images/fashion.jpg'),
-                _CategoryCard(label: 'Baby     Shower', imageAsset: 'assets/images/babyshower.jpeg'),
-                _CategoryCard(label: 'Farewell Party', imageAsset: 'assets/images/farewell.jpg'),
-                _CategoryCard(label: 'Conference Hall', imageAsset: 'assets/images/conference.jpeg'),
-              ],
+  child: Row(
+    children: [
+      _CategoryCard(
+        label: 'Birthday Parties',
+        imageAsset: 'assets/images/cake.jpg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Birthday Parties',
+                imageAsset: 'assets/images/cake.jpg',
+              ),
             ),
+          );
+        },
+      ),
+      _CategoryCard(
+        label: 'Wedding Ceremony',
+        imageAsset: 'assets/images/wedding.jpg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Wedding Ceremony',
+                imageAsset: 'assets/images/wedding.jpg',
+              ),
+            ),
+          );
+        },
+      ),
+      // ... do this for all other categories
+       _CategoryCard(
+        label: 'Cocktail Parties',
+        imageAsset: 'assets/images/cocktail.jpg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Cocktail Parties',
+                imageAsset: 'assets/images/cocktail.jpg',
+              ),
+            ),
+          );
+        },
+      ),
+ _CategoryCard(
+        label: 'Fashion Shows',
+        imageAsset: 'assets/images/fashion.jpg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Fashion Show',
+                imageAsset: 'assets/images/fashion.jpg',
+              ),
+            ),
+          );
+        },
+      ),
+    
+ _CategoryCard(
+        label: 'Baby Showers',
+        imageAsset: 'assets/images/babyshower.jpeg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Baby Showers',
+                imageAsset: 'assets/images/babyshower.jpeg',
+              ),
+            ),
+          );
+        },
+      ),
+       _CategoryCard(
+        label: 'Farewell Parties',
+        imageAsset: 'assets/images/farewell.jpg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Farewall Parties',
+                imageAsset: 'assets/images/farewell.jpg',
+              ),
+            ),
+          );
+        },
+      ),
+       _CategoryCard(
+        label: 'Conference Events',
+        imageAsset: 'assets/images/conference.jpeg',
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CategoryDetailsPage(
+                categoryName: 'Conference Events',
+                imageAsset: 'assets/images/conference.jpeg',
+              ),
+            ),
+          );
+        },
+      ),
+      ],
+  ),
 ),
             const SizedBox(height: 24),
 
             // ---------- Top Venues ----------
-            const _SectionHeader(title: 'Top Venues'),
+            _SectionHeader(title: 'Top Venues',
+            onViewAll: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AllVenuesPage(),
+                ),
+              );
+            },),
             const SizedBox(height: 12),
             SizedBox(
               height: 240,
@@ -261,7 +367,16 @@ SingleChildScrollView(
             ),
 
             // ---------- NEW: Top Stages ----------
-            const _SectionHeader(title: 'Stages'),
+            _SectionHeader(title: 'Stages',
+              onViewAll: () {
+            Navigator.push(
+           context,
+           MaterialPageRoute(
+          builder: (context) => AllStagesPage(),
+          ),
+         );
+         },
+            ),
             const SizedBox(height: 12),
             SizedBox(
               height: 240,
@@ -299,7 +414,16 @@ SingleChildScrollView(
 const SizedBox(height: 24),
 
             // ---------- NEW: Mandap Decorations ----------
-            const _SectionHeader(title: 'Mandap Decorations'),
+            _SectionHeader(title: 'Mandap Decorations',
+              onViewAll: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AllMandapsPage(),
+      ),
+    );
+  },
+            ),
             const SizedBox(height: 12),
             SizedBox(
               height: 240,
@@ -337,7 +461,15 @@ const SizedBox(height: 24),
             const SizedBox(height: 24),
 
             // ---------- NEW: Entrance Gate Decorations ----------
-            const _SectionHeader(title: 'Entrance Gate Decorations'),
+            _SectionHeader(title: 'Entrance Gate Decorations',
+              onViewAll: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewAllGatePage(),
+      ),
+    );
+  },),
             const SizedBox(height: 12),
             SizedBox(
               height: 240,
@@ -375,7 +507,16 @@ const SizedBox(height: 24),
             const SizedBox(height: 24),
 
             // ---------- NEW: Balloon Decorations ----------
-            const _SectionHeader(title: 'Balloon Decorations'),
+            _SectionHeader(title: 'Balloon Decorations',
+              onViewAll: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewAllDecorationPage(),
+      ),
+    );
+  },
+  ),
             const SizedBox(height: 12),
             SizedBox(
               height: 240,
@@ -451,7 +592,8 @@ const SizedBox(height: 24),
 // ---------- Helper Widgets ----------
 class _SectionHeader extends StatelessWidget {
   final String title;
-  const _SectionHeader({required this.title});
+  final VoidCallback? onViewAll;
+  const _SectionHeader({required this.title, this.onViewAll});
 
   @override
   Widget build(BuildContext context) {
@@ -463,7 +605,7 @@ class _SectionHeader extends StatelessWidget {
           Text(title,
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
           TextButton(
-            onPressed: () {},
+            onPressed: onViewAll,
             child: const Text(
               'View All',
               style: TextStyle(
@@ -481,41 +623,60 @@ class _SectionHeader extends StatelessWidget {
 class _CategoryCard extends StatelessWidget {
   final String label;
   final String imageAsset;
-  const _CategoryCard({required this.label, required this.imageAsset});
+  final VoidCallback? onTap;
+  final String heroTag; // Add this
+
+  const _CategoryCard({
+    required this.label,
+    required this.imageAsset,
+    this.onTap, 
+    String? heroTag,
+    Key? key,
+    // optional
+  })
+  : heroTag = heroTag ?? imageAsset,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          elevation: 2,
-          child: SizedBox(
-            width: 70,
-            height: 70,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(imageAsset, fit: BoxFit.cover),
+    return GestureDetector(
+      onTap: onTap, // handle tap
+      child: Column(
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            elevation: 2,
+            child: SizedBox(
+              width: 70,
+              height: 70,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Hero(
+                tag: heroTag,
+                child: Image.asset(imageAsset, fit: BoxFit.cover),
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 6),
-        SizedBox(
-          width: 80,
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color(0xFF23223A),
-              fontWeight: FontWeight.w600,
-              fontSize: 13,
+          ),
+          const SizedBox(height: 6),
+          SizedBox(
+            width: 80,
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Color(0xFF23223A),
+                fontWeight: FontWeight.w600,
+                fontSize: 13,
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
+
 
 class _VenueCard extends StatelessWidget {
   final String image, name, location, price, halls, capacity;
