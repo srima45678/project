@@ -106,10 +106,12 @@ class CategoryDetailsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: const [
-                      _IconAction(icon: Icons.place, label: 'Venues'),
+                      _IconAction(icon: Icons.place, label: 'Venues',
+                      
+                      ),
                       _IconAction(icon: Icons.restaurant, label: 'Catering'),
                       _IconAction(icon: Icons.music_note, label: 'Music'),
-                      _IconAction(icon: Icons.shopping_bag, label: 'Bridal wear'),
+                      _IconAction(icon: Icons.auto_awesome, label: 'Decoration'),
                       _IconAction(icon: Icons.photo_camera, label: 'Photography'),
                     ],
                   ),
@@ -207,12 +209,13 @@ class CategoryDetailsPage extends StatelessWidget {
 class _IconAction extends StatelessWidget {
   final IconData icon;
   final String label;
-  const _IconAction({required this.icon, required this.label, Key? key}) : super(key: key);
+  final VoidCallback? onTap;
+  const _IconAction({required this.icon, required this.label, this.onTap, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Column(
         children: [
           Container(

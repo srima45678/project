@@ -78,8 +78,8 @@ class MyApp extends StatelessWidget {
         // '/venue_details': (context) => const VenueDetailsPage(),
         // '/logo': (context) => const EventifyScreen(),
       },
-      //  home: const SplashToWelcome(),
-      home: AdminHomePage(),
+        home: const SplashToWelcome(),
+      // home: AdminHomePage(),
     );
   }
 }

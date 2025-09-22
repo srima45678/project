@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/screens/booking_detail.dart';
 import 'package:project/screens/drawer.dart';
 
 class BookingPage extends StatelessWidget {
@@ -39,8 +40,10 @@ class BookingPage extends StatelessWidget {
 
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const AppDrawer(),
-      // endDrawer: const AppDrawer(),
+      drawer: const AppDrawer(
+
+      ),
+    //  endDrawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -97,9 +100,17 @@ class BookingPage extends StatelessWidget {
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(
-                'Date: ${booking['date']}'+'\n'+'Status: ${booking['status']}',
+                'Date: ${booking['date']}\nStatus: ${booking['status']}',
               ),
               isThreeLine: true,
+              onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookingDetailPage(booking: booking),
+      ),
+    );
+  },
             ),
           );
         },

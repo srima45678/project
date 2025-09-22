@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/screens/drawer.dart';
+import 'package:project/screens/favourite_detail.dart';
 
 class FavouritesPage extends StatelessWidget {
   const FavouritesPage({super.key});
@@ -89,6 +90,14 @@ class FavouritesPage extends StatelessWidget {
                     ),
                     subtitle: Text('${fav['location']}\n${fav['price']}'),
                     isThreeLine: true,
+                     onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FavouriteDetailPage(fav: fav),
+      ),
+    );
+  },
                   ),
                 );
               },
