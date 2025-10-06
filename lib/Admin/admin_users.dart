@@ -57,7 +57,7 @@ class _AdminUsersPageState extends State<AdminUsersPage> {
                 value: selectedRole,
                 items: const [
                   DropdownMenuItem(value: "User", child: Text("User")),
-                  DropdownMenuItem(value: "Admin", child: Text("Admin")),
+                  DropdownMenuItem(value: "Planner", child: Text("Planner")),
                 ],
                 onChanged: (value) {
                   selectedRole = value!;
