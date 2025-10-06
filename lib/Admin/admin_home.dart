@@ -9,6 +9,8 @@ import 'package:project/Admin/admin_setting_page.dart';
 import 'package:project/Admin/admin_rating_review.dart';
 import 'package:project/Admin/admin_coupons.dart';
 import 'package:project/Admin/admin_event_planner.dart';
+import 'package:project/Admin/admin_booking.dart';
+import 'package:project/Admin/admin_users.dart';
 
 // import 'package:project/screens/admin/manage_mandaps.dart';
 // import 'package:project/screens/admin/manage_stages.dart';
@@ -60,14 +62,14 @@ class AdminHomePage extends StatelessWidget {
               leading: const Icon(Icons.event),
               title: const Text('Bookings'),
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageMandapsPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminBookingsPage()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.theater_comedy),
               title: const Text('Users'),
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageStagesPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminUsersPage()));
               },
             ),
             ListTile(
