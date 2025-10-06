@@ -6,6 +6,9 @@ import 'package:project/Admin/manage_stages.dart';
 import 'package:project/Admin/manage_venue.dart';
 import 'package:project/Admin/admin_aboutus.dart';
 import 'package:project/Admin/admin_setting_page.dart';
+import 'package:project/Admin/admin_rating_review.dart';
+import 'package:project/Admin/admin_coupons.dart';
+import 'package:project/Admin/admin_event_planner.dart';
 
 // import 'package:project/screens/admin/manage_mandaps.dart';
 // import 'package:project/screens/admin/manage_stages.dart';
@@ -71,7 +74,7 @@ class AdminHomePage extends StatelessWidget {
               leading: const Icon(Icons.people),
               title: const Text('Event Planners'),
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageGatesPage()));
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminEventPlannerPage()));
               },
             ),
             ListTile(
@@ -85,7 +88,7 @@ class AdminHomePage extends StatelessWidget {
               leading: const Icon(Icons.card_giftcard),
               title: const Text('Coupons'),
               onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageVenuesPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminCouponsPage()));
               },
             ),
             ListTile(
@@ -93,6 +96,7 @@ class AdminHomePage extends StatelessWidget {
               title: const Text('Ratings & Reviews'),
               onTap: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const ManageMandapsPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AdminReviewsPage()));
               },
             ),
             ListTile(
@@ -189,4 +193,6 @@ class AdminHomePage extends StatelessWidget {
     );
   }
 }
+
+
 
