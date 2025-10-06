@@ -4,6 +4,8 @@ import 'package:project/Admin/manage_gates.dart';
 import 'package:project/Admin/manage_mandap.dart';
 import 'package:project/Admin/manage_stages.dart';
 import 'package:project/Admin/manage_venue.dart';
+import 'package:project/Admin/admin_aboutus.dart';
+import 'package:project/Admin/admin_setting_page.dart';
 
 // import 'package:project/screens/admin/manage_mandaps.dart';
 // import 'package:project/screens/admin/manage_stages.dart';
@@ -105,7 +107,8 @@ class AdminHomePage extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsPage()));
-              },
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminSettingsPage()));            
+                  },
             ),
 
             ListTile(
@@ -113,6 +116,7 @@ class AdminHomePage extends StatelessWidget {
               title: const Text('About Us'),
               onTap: () {
                 // Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminAboutUsPage()));
               },
             ),
 
@@ -185,3 +189,4 @@ class AdminHomePage extends StatelessWidget {
     );
   }
 }
+
