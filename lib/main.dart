@@ -105,4 +105,3 @@ class _SplashToWelcomeState extends State<SplashToWelcome> {
     return const EventifyScreen(); // Show logo.dart splash screen
   }
 }
-
