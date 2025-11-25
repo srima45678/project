@@ -13,8 +13,8 @@ class ProfilePages extends StatelessWidget {
 
     // Dummy user data
     const user = {
-      'name': 'Surja Bist',
-      'email': 'surja@example.com',
+      'name': 'Anaya Sharma',
+      'email': 'sharmaanaya78@gmail.com',
       'phone': '+91 9876543210',
       'image': 'assets/images/profile.jpg', // Make sure this asset exists
     };
